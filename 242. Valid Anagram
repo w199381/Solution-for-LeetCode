@@ -1,0 +1,72 @@
+/*Given two strings s and t , write a function to determine if t is an anagram of s.
+
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+Example 2:
+
+Input: s = "rat", t = "car"
+Output: false
+Note:
+You may assume the string contains only lowercase alphabets. */
+
+public class Solution 
+{
+    public bool IsAnagram(string s, string t) {
+        if(s.Length != t.Length)
+        {
+            return false;
+        }
+        var sList = new List<Char>();
+		var tList = new List<Char>();
+		int result = 0;
+		for(int i = 0; i<s.Length; i++)
+		{
+			sList.Add(s[i]);
+            tList.Add(t[i]);
+		}
+		sList.Sort();
+		tList.Sort();
+        char[] s1 = sList.ToArray();
+        char[] t1 = tList.ToArray();
+		for(int i = 0; i<s.Length; i++)
+        {
+            if(s1[i] != t1[i])
+            {
+                return false;
+                break;
+            }
+            else
+            {
+                continue;
+            }
+        }
+        return true;
+        
+    }
+}
+
+/* the answer above was my first thought. After checking the shortest-run-time solution, I learned the way to use the "Array" as alphabets' mapping. The code is below:
+-----------------------------------
+		if(s.Length != t.Length)
+            return false;
+        var map = new int[255]; 
+        foreach (var c in s)  
+            map[c]++;
+        foreach (var c in t)
+            map[c]--;
+        foreach (var c in map)
+        {            
+            if (c != 0)
+                return false;
+        }
+        return true;
+-----------------------------------
+The map would be(Suppse string s = "ab" and string t = "cd"): 
+000...11-1-100...000 (map[c]++)
+000...000000...000 (map[c]--)
+Ending up using if to determine the final outcome. */
+
+
+
